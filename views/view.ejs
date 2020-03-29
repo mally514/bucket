@@ -1,0 +1,90 @@
+
+<!--    // <script type="text/javascript" src="/js/index.js"></script> -->
+
+<!DOCTYPE html>
+<!-- code by webdevtrick ( https://webdevtrick.com ) -->
+<html>
+ 
+<head>
+  <meta charset="UTF-8">
+  <title>Bucket List</title>
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300">
+ <link rel="stylesheet" href="/css/styles.css">
+ <style type="text/css">
+
+ </style>
+</head>
+ 
+<body>
+ 
+  <div id="menu-nav">
+  <div id="navigation-bar">
+    <ul>
+   		<li><a><span>Bucket List</span></a></li>
+      <li><a href="/Dashboard"><i class="fa fa-home" ></i><span>Home</span></a></li>
+       <li><a href="/logout"><i class="fa fa-off"></i><span>Logout</span></a></li>
+    </ul>
+  </div>
+  </div>
+ 	<div class="container">
+		<div class="welcome">
+			<h2><%= user.name %> Bucket list!</h2>
+			<% if(messages.messages) { %>
+			     <% for (var message of messages.messages) { %>
+			     <div class="alert">
+			          <span class="closebtn">&times;</span>
+			          <%= message %>
+			     </div>
+			     <% } %>
+			 <% } %>
+		</div>
+				<form name="frmChkForm" id="frmChkForm">
+					<h4>Done</h4>
+					<% if(bucket_list.length > 0) { %>
+		    		<% for (var bucket of bucket_list) { %>
+	  				<tr>
+		          	<td>
+		          		<% for (var list of bucket.users ) { %>
+		          			<% if(bucket.status == "checked") { %>
+		        					
+				          			<input type="checkbox" id="vehicle1" name="status" value="Bike" checked="checked">
+				          				 <%= list.name %> I <%= bucket.title %> - <%= bucket.description %>, <%=  moment(bucket.createdAt).format('Do MMMM, YYYY') %>
+		          			<% } %>
+		          		<% } %>
+		          	</td>
+          			</tr>
+		          	<% } %>
+		          	<% } %>
+		          	<h4>Pending</h4>
+		          	<% if(bucket_list.bucket_list) { %>
+		          	<% for (var bucket of bucket_list) { %>
+	  				<tr>
+		          	<td>
+		          		<% for (var list of bucket.users ) { %>
+		          			<% if(bucket.status != "checked") { %>
+		        					
+				          	<input type="checkbox" id="vehicle1" name="status" value="Bike" >
+		          		<%= list.name %> I <%= bucket.title %> - <%= bucket.description %>, <%=  moment(bucket.createdAt).format('Do MMMM, YYYY') %><br>
+		          			<% } %>
+		          		<% } %>
+		          	</td>
+          			</tr>
+		          	<% } %>
+		          	<% } %>
+				</form>
+	</div>
+<script type="text/javascript">
+	var close = document.getElementsByClassName("closebtn");
+	var i;
+
+	for (i = 0; i < close.length; i++) {
+	  close[i].onclick = function(){
+	    var div = this.parentElement;
+	    div.style.opacity = "0";
+	    setTimeout(function(){ div.style.display = "none"; }, 600);
+	  }
+	}
+</script>
+</body>
+</html>

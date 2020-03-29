@@ -1,0 +1,116 @@
+
+<!--    // <script type="text/javascript" src="/js/index.js"></script> -->
+
+<!DOCTYPE html>
+<!-- code by webdevtrick ( https://webdevtrick.com ) -->
+<html>
+ 
+<head>
+  <meta charset="UTF-8">
+  <title>Bucket List</title>
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300">
+ <link rel="stylesheet" href="/css/styles.css">
+ <style type="text/css">
+
+ </style>
+ <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+</head>
+ 
+<body>
+ 
+  <div id="menu-nav">
+  <div id="navigation-bar">
+    <ul>
+   		<li><a><span>Bucket List</span></a></li>
+      <li id="home"><a href="#"><i class="fa fa-home" ></i><span>Home</span></a></li>
+       <li><a href="/logout"><i class="fa fa-off"></i><span>Logout</span></a></li>
+    </ul>
+  </div>
+  </div>
+ 	<div class="container">
+		<div class="welcome">
+			<h2> Welcome, <%= user.name %>!</h2>
+			<% if(messages.messages) { %>
+			     <% for (var message of messages.messages) { %>
+			     <div class="alert">
+			          <span class="closebtn">&times;</span>
+			          <%= message %>
+			     </div>
+			     <% } %>
+			 <% } %>
+			<form method="post" action="/add_list">
+				 <input class="input" type="hidden" name="status" value="checked" >
+		        <input class="input" type="text" name="title" placeholder="Title" >
+		        <input class="input" type="text" name="description" placeholder="Description" >
+		        <select name="user_name">
+		        	<option>Select</option>
+		        	<% for (var list of user_list) { %>
+		        		<option value="<%= list.id %>">
+		        			<%= list.name %>		
+		        		</option>
+				    <% } %>
+		        </select>
+		        <input type="submit" value="Add list">
+		     </form>	
+		</div>
+		<div  class="welcome"> 
+			<h3>Before I die I want to.</h3>
+			<table id="table">
+	    	<tr>
+	    		<th></th>
+	    	</tr>
+		    	<form name="frmChkForm" id="frmChkForm">
+		    		<% for (var bucket of bucket_list) { %>
+	  				<tr>
+		          	<td>
+		          		
+		          		<% for (var list of bucket.users  ) { %>
+
+				          		<% if(list.id == user_id) { %>
+
+				          			<input type="checkbox" name="status" value="checked">
+
+				          		<% } else {%>
+				          		
+				          			<input type="checkbox" id="vehicle1" name="vehicle1" value="Bike" disabled="">
+				          		<% } %>
+		     					
+		          		<% } %>
+		          		 
+		          		 <%= list.name %> I <%= bucket.title %> - <%= bucket.description %>, <%=  moment(bucket.createdAt).format('Do MMMM, YYYY') %>
+		          	</td>
+          			</tr>
+		          	<% } %>
+				</form>
+			</table>
+		</div>
+	    <table id="table">
+	    	<tr>
+	    		<th>List of the users (Click to view profile)</th>
+	    	</tr>
+	    	 <% for (var other of other_user) { %>
+			 <tr>
+			 	<td>
+			      <a href="/view/<%= other.id %>"><i class="fa fa-off"></i><span><%= other.name %></span></a>
+			    </td>
+			 </tr>
+          <% } %>
+        </table>
+        
+	</div>
+<script type="text/javascript">
+	var close = document.getElementsByClassName("closebtn");
+	var i;
+
+	for (i = 0; i < close.length; i++) {
+	  close[i].onclick = function(){
+	    var div = this.parentElement;
+	    div.style.opacity = "0";
+	    setTimeout(function(){ div.style.display = "none"; }, 600);
+	  }
+	}
+</script>
+</body>
+</html>

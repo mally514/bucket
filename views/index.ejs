@@ -1,0 +1,49 @@
+
+<!--    // <script type="text/javascript" src="/js/index.js"></script> -->
+
+<!DOCTYPE html>
+<!-- code by webdevtrick ( https://webdevtrick.com ) -->
+<html>
+ 
+<head>
+  <meta charset="UTF-8">
+  <title>Bucket Lists</title>
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+ <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300">
+ <link rel="stylesheet" href="/css/styles.css">
+</head>
+ 
+<body>
+ 	<div class="container">
+	    <div class="row">
+	    <% if(messages.messages) { %>
+		     <% for (var message of messages.messages) { %>
+		     <div class="alert">
+		          <span class="closebtn">&times;</span>
+		          <%= message %>
+		     </div>
+		     <% } %>
+		 <% } %>
+	     
+	      	<h1>Bucket Lists</h1>
+	      	<form method="post" action="/login">
+		        <input class="input" type="text" name="name" placeholder="Name" >
+		        <input class="input" type="submit" value="Enter">
+		     </form>	
+		   </div>
+	   
+	</div>
+<script type="text/javascript">
+	var close = document.getElementsByClassName("closebtn");
+	var i;
+
+	for (i = 0; i < close.length; i++) {
+	  close[i].onclick = function(){
+	    var div = this.parentElement;
+	    div.style.opacity = "0";
+	    setTimeout(function(){ div.style.display = "none"; }, 600);
+	  }
+	}
+</script>
+</body>
+</html>
